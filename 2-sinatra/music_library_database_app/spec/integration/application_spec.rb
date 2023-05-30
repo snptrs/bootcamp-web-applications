@@ -12,7 +12,6 @@ describe Application do
   
   context "POST /albums" do
     it 'returns 200 OK' do
-      # Assuming the post with id 1 exists.
       response = post('/albums', title: 'Voyage', release_year: 2022, artist_id: 2)
       expect(response.status).to eq(200)
       
@@ -20,5 +19,22 @@ describe Application do
       expect(response.body).to include('Voyage')
     end
   end
-
+  
+  context "GET /artists" do
+    it "returns a list of artists" do
+      response = get('/artists')
+      expect(response.status).to eq(200)
+      expect(response.body).to eq("Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos")
+    end
+  end
+  
+  context "POST /artists" do
+    it "adds an artist to the database" do
+      response = post('/artists', name: 'Wild nothing', genre: 'Indie')
+      expect(response.status).to eq(200)
+      
+      response = get('/artists')
+      expect(response.body).to eq("Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos, Wild nothing")
+    end
+  end
 end
