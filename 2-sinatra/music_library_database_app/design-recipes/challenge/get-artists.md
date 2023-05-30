@@ -62,7 +62,7 @@ describe Application do
     it 'returns 200 OK' do
       response = get('/artists')
       expect(response.status).to eq(200)
-      expect(response.body).to eq("Pixies, ABBA, Taylor Swift, Nina Simone")
+      expect(response.body).to include("Pixies, ABBA, Taylor Swift, Nina Simone")
     end
   end
 end
