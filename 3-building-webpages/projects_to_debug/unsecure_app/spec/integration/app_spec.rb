@@ -27,5 +27,19 @@ describe Application do
       expect(response.status).to eq(200)
       expect(response.body).to include('Hi Aurora!')
     end
+    
+    it 'should return 400 status for input > 50 characters' do
+      response = post('/hello', name: 'a' * 51)
+      
+      expect(response.status).to eq(400)
+      expect(response.body).to include('Name must be less than 50 characters')
+    end
+    
+    it 'should strip special characters from input' do
+      response = post('/hello', name: 'scripthttpwwwbadsiteruparamsomethingscript')
+      
+      expect(response.status).to eq(200)
+      expect(response.body).to include('scripthttpwwwbadsiteruparamsomethingscript')
+    end
   end
 end
