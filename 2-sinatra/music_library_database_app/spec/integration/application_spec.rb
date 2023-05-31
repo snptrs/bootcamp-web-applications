@@ -27,6 +27,12 @@ describe Application do
       response = get('/albums')
       expect(response.body).to include('Voyage')
     end
+    
+    it "returns an error if the parameters aren't correct" do
+      response = post('/albums', title: 'Blonde on Blonde') # No release__year or artist_id
+      expect(response.status).to eq(400)
+      expect(response.body).to include("Oopsie, something isn't right...")
+    end
   end
   
   context "GET /albums/" do
@@ -84,6 +90,12 @@ describe Application do
       
       response = get('/artists')
       expect(response.body).to include('<a href="/artists/1">Pixies</a>').or include("Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos")
+    end
+    
+    it "returns an error if the parameters aren't correct" do
+      response = post('/artists', name: 'Wild nothing') # No genre submitted
+      expect(response.status).to eq(400)
+      expect(response.body).to include("Oopsie, something isn't right...")
     end
   end
 end

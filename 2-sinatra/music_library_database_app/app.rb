@@ -19,6 +19,17 @@ class Application < Sinatra::Base
   end
   
   post '/albums' do
+    def invalid_request_parameters?
+      return true if params[:title] == nil || params[:release_year] == nil || params[:artist_id] == nil
+      return true if params[:title] == "" || params[:release_year] == "" || params[:artist_id] == ""
+      return false
+    end
+    
+    if invalid_request_parameters?
+      status 400
+      return "Oopsie, something isn't right..."
+    end
+    
     repo = AlbumRepository.new
     album = Album.new
     album.title = params[:title]
@@ -71,6 +82,17 @@ class Application < Sinatra::Base
   end
   
   post '/artists' do
+    def invalid_request_parameters?
+      return true if params[:name] == nil || params[:genre] == nil
+      return true if params[:genre] == "" || params[:genre] == ""
+      return false
+    end
+    
+    if invalid_request_parameters?
+      status 400
+      return "Oopsie, something isn't right..."
+    end
+    
     repo = ArtistRepository.new
     artist = Artist.new
     artist.name = params[:name]
@@ -78,5 +100,7 @@ class Application < Sinatra::Base
     
     repo.create(artist)
     return "Artist #{artist.name} added."
+  
   end
+  
 end
