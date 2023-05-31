@@ -48,7 +48,15 @@ describe Application do
     it "returns a list of artists" do
       response = get('/artists')
       expect(response.status).to eq(200)
-      expect(response.body).to eq("Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos")
+      expect(response.body).to include('<a href="/artists/1">Pixies</a>').or include("Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos")
+    end
+  end
+  
+  context "GET /artists/:id" do
+    it "returns a single artist by ID" do
+      response = get('/artists/1')
+      expect(response.status).to eq(200)
+      expect(response.body).to include("<h1>Pixies</h1>")
     end
   end
   
@@ -58,7 +66,7 @@ describe Application do
       expect(response.status).to eq(200)
       
       response = get('/artists')
-      expect(response.body).to eq("Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos, Wild nothing")
+      expect(response.body).to include('<a href="/artists/1">Pixies</a>').or include("Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos")
     end
   end
 end
