@@ -20,8 +20,17 @@ describe Application do
     end
   end
   
+  context "GET /albums/" do
+    it 'returns 200 OK and a list of albums' do
+      response = get('/albums')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Title: Voyage')
+      expect(response.body).to include('Title: Folklore')
+    end
+  end
+  
   context "GET /albums/:id" do
-    it 'returns 200 OK' do
+    it 'returns 200 OK and a signle album' do
       response = get('/albums/13')
       expect(response.status).to eq(200)
       expect(response.body).to include('<h1>Voyage</h1>')
