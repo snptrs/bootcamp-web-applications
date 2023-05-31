@@ -20,6 +20,15 @@ describe Application do
     end
   end
   
+  context "GET /albums/:id" do
+    it 'returns 200 OK' do
+      response = get('/albums/13')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Voyage</h1>')
+      expect(response.body).to include('Release year: 2022')
+    end
+  end
+  
   context "GET /artists" do
     it "returns a list of artists" do
       response = get('/artists')
