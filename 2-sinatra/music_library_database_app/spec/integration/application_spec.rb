@@ -9,6 +9,15 @@ describe Application do
   # We need to declare the `app` value by instantiating the Application
   # class so our tests work.
   let(:app) { Application.new }
+
+  context "GET /albums/new" do
+    it 'returns 200 OK' do
+      response = get('/albums/new')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>New album</h1')
+      expect(response.body).to include('<form action="/albums" method="POST">')
+    end
+  end
   
   context "POST /albums" do
     it 'returns 200 OK' do

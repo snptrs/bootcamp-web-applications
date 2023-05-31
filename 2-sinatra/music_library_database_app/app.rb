@@ -14,6 +14,10 @@ class Application < Sinatra::Base
     also_reload 'lib/artist_repository'
   end
   
+  get '/albums/new' do
+    return erb(:new_album)
+  end
+  
   post '/albums' do
     repo = AlbumRepository.new
     album = Album.new
@@ -22,7 +26,7 @@ class Application < Sinatra::Base
     album.artist_id = params['artist_id']
     
     repo.create(album)
-    return ''
+    return "Album #{album.title} added"
   end
   
   get '/albums' do
