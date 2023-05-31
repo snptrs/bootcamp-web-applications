@@ -24,8 +24,14 @@ describe Application do
     it 'returns 200 OK and a list of albums' do
       response = get('/albums')
       expect(response.status).to eq(200)
-      expect(response.body).to include('Title: Voyage')
-      expect(response.body).to include('Title: Folklore')
+      expect(response.body).to include('Voyage')
+      expect(response.body).to include('Folklore')
+    end
+    
+    it 'includes a link to the individual album page' do
+      response = get('/albums')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<a href="/albums/13">Voyage</a>')
     end
   end
   
