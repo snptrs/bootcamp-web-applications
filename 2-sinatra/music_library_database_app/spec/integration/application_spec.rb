@@ -61,6 +61,14 @@ describe Application do
     end
   end
   
+  context "GET /artists/new" do
+    it "returns a new artist form" do
+      response = get('/artists/new')
+      expect(response.body).to include('<h1>New artist</h1')
+      expect(response.body).to include('<form action="/artists" method="POST">')
+    end
+  end
+  
   context "GET /artists/:id" do
     it "returns a single artist by ID" do
       response = get('/artists/1')
