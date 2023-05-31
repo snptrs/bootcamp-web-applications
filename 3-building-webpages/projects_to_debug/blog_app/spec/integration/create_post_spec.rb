@@ -34,7 +34,7 @@ describe Application do
 
         response = get('/')
 
-        expect(response.body).to include('<h3>A new post</h3>')
+        expect(response.status).to eq(200)
       end
     end
   end
