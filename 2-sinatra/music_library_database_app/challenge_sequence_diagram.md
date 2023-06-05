@@ -1,7 +1,7 @@
 ```mermaid
 sequenceDiagram
 participant c as Client
-box rgb(170, 179, 207) Sinatra application
+box Gray Sinatra application
     participant rack as Rackup
     participant app as Application class<br />(app.rb)
     participant repo as ArtistRepository class
